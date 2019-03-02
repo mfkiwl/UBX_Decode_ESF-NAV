@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
 	uint16_t timeTag=0;              //create personal timetag
 	struct ubx_header *header;
 	FILE *data_fp;
+
 	FILE *log;
 	
 	
