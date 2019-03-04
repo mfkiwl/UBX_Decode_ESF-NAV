@@ -246,10 +246,10 @@ void write_nav_pvt_payload(uint8_t * payload, uint16_t data_length,uint16_t time
 	dataPrint[3]=UBX_NAV_PVT1.velN;
 	dataPrint[4]=UBX_NAV_PVT1.velE;
 	dataPrint[5]=UBX_NAV_PVT1.velD;
-	fprint_nav_pvt(pPVT,UBX_NAV_PVT1.iTOW,dataPrint);
+	fprint_nav_pvt(pPVT, UBX_NAV_PVT1.iTOW, dataPrint[0], dataPrint[1], dataPrint[2], dataPrint[3], dataPrint[4], dataPrint[5]);
 	
 	
-	fclose(p);
+	fclose(pPVT);
 
 }
 /*
@@ -337,48 +337,8 @@ void write_esf_means_payload(uint8_t * payload, uint16_t data_length, uint16_t P
 		//temp_s_long = ( temp_s_long | ( 0x0F & payload[i+2]) )<< 8;
 		//temp_s_long = ( temp_s_long | ( 0x0F & payload[i+3]) );
 		data_type = payload[i + 3];//(temp_u_long  & 0x3F000000)>>24;
-		/*data_detials = temp_u_long & 0xFFFFFF;
+		//data_detials = temp_u_long & 0xFFFFFF;
 		//if data_type is in need       
-		switch(data_type)
-		{
-			case'14':
-			{
-				data_detials=temp_u_long & 0xFFFFFF;
-				Rawdata2Detials(data_detials, data_type, &float_data);
-				IMUdata[0]=float_data;
-			}
-			case'13':
-			{
-				data_detials=temp_u_long & 0xFFFFFF;
-				Rawdata2Detials(data_detials, data_type, &float_data);
-				IMUdata[1]=float_data;
-			}
-			case'5' :
-			{
-				data_detials=temp_u_long & 0xFFFFFF;
-				Rawdata2Detials(data_detials, data_type, &float_data);
-				IMUdata[2]=float_data;
-			}
-			case'16':
-			{
-				data_detials=temp_u_long & 0xFFFFFF;
-				Rawdata2Detials(data_detials, data_type, &float_data);
-				IMUdata[3]=float_data;
-			}
-			case'17':
-			{
-				data_detials=temp_u_long & 0xFFFFFF;
-				Rawdata2Detials(data_detials, data_type, &float_data);
-				IMUdata[4]=float_data;
-			}
-			case'18':
-			{
-				data_detials=temp_u_long & 0xFFFFFF;
-				Rawdata2Detials(data_detials, data_type, &float_data);
-				IMUdata[5]=float_data;
-			}
-		}
-		fprint_esf_means(p_esf, UBX_ESF_MEANS1.timeTag,data_type,IMUdata);*/
 		
 		if (data_type == 0x05 | (data_type<=0x0e & data_type>=0x0b)|( data_type<=0x12 & data_type>=0x010) )
 		{

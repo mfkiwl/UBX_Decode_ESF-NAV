@@ -34,9 +34,9 @@ int is_checksum_equal(uint8_t checksum[CHECKSUM_LENGTH], uint8_t results[CHECKSU
 void fprint_header(FILE *fp, struct ubx_header *header);
 void fprint_payload(FILE *fp, uint8_t *payload, uint16_t length);
 void fprint_checksum(FILE *fp, uint8_t checksum[CHECKSUM_LENGTH]);
-void fprint_esf_means(FILE *fp, uint32_t timeTag, uint16_t data_type, float float_data);
+void fprint_esf_means(FILE *fp, uint32_t timeTag, uint16_t data_type, double float_data);
 void fpring_float_data(FILE *p, double float_data);
-void fprint_nav_pvt(FILE *fp, uint32_t iTOW, int32_t dataPrint);
+void fprint_nav_pvt(FILE *fp, uint32_t iTOW, int32_t PrintLon, int32_t PrintLat, int32_t PrintHei, int32_t PrintVelN, int32_t PrintVelE, int32_t PrintVelD);
 void ubx2p754(uint64_t *p, double *tempNum);
 
 #endif

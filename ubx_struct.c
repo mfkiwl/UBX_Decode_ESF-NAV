@@ -73,19 +73,16 @@ void fprint_checksum(FILE *fp, uint8_t checksum[2])
 }
 
 void fprint_esf_means(FILE *fp,uint32_t timeTag,uint16_t data_type,double float_data)
-// p_esf, (*r).timeTag, data_type, float_data, count
 {
-	//fprintf(fp, "MEANS\n");
-	fprintf(fp, "%u,%d,%f",timeTag, data_type, float_data);
-	//fprintf(fp, "%f",float_data);
+	fprintf(fp, "%u,%d,%lf",timeTag, data_type, float_data);
 	fprintf(fp, "\n");
 }
 
 //void fprintf_nav_pvt(FILE *fp ,uint_16t );pPVT,UBX_NAV_PVT1.iTOW,dataPrint
-void fprint_nav_pvt(FILE *fp,uint32_t iTOW,int32_t dataPrint)
+void fprint_nav_pvt(FILE *fp,uint32_t iTOW,int32_t PrintLon, int32_t PrintLat, int32_t PrintHei, int32_t PrintVelN, int32_t PrintVelE, int32_t PrintVelD)
 {
 	
-	fprintf(fp, "%u,%f",iTOW,dataPrint);
+	fprintf(fp, "%u,%d,%d,%d,%d,%d,%d", iTOW, PrintLon, PrintLat, PrintHei, PrintVelN, PrintVelE, PrintVelD);
 	//fprintf(fp, "%f",float_data);
 	fprintf(fp, "\n");
 }
