@@ -18,6 +18,7 @@ FILE *p_esf = NULL;
 FILE *p_rxm = NULL;
 FILE *pPVT = NULL;
 FILE *p;
+FILE *write = NULL;
 
 
 struct UBX_ESF_INS
@@ -215,7 +216,7 @@ void write_nav_pvt_payload(uint8_t * payload, uint16_t data_length,uint16_t time
 	temp_u_char = temp_u_char & 0;
 	temp_u_short = temp_u_short & 0;
 	count = 0;
-	pPVT = fopen("pvt.txt", "a+");
+	write = fopen("esf.txt", "a+");
 	//UTC TIME
 	temp_u_long = temp_u_long | (0x0FF & payload[0]) << 0 | (0x0FF & payload[1]) << 8 | (0x0FF & payload[2]) << 16 | (0x0FF & payload[3]) << 24;
 	UBX_NAV_PVT1.iTOW = temp_u_long;
@@ -246,10 +247,10 @@ void write_nav_pvt_payload(uint8_t * payload, uint16_t data_length,uint16_t time
 	dataPrint[3]=UBX_NAV_PVT1.velN;
 	dataPrint[4]=UBX_NAV_PVT1.velE;
 	dataPrint[5]=UBX_NAV_PVT1.velD;
-	fprint_nav_pvt(pPVT, UBX_NAV_PVT1.iTOW, dataPrint[0], dataPrint[1], dataPrint[2], dataPrint[3], dataPrint[4], dataPrint[5]);
+	fprint_nav_pvt(write, UBX_NAV_PVT1.iTOW, dataPrint[0], dataPrint[1], dataPrint[2], dataPrint[3], dataPrint[4], dataPrint[5]);
 	
 	
-	fclose(pPVT);
+	fclose(write);
 
 }
 /*
@@ -320,7 +321,7 @@ void write_esf_means_payload(uint8_t * payload, uint16_t data_length, uint16_t P
 	temp_u_char = temp_u_char & 0;
 	temp_u_short = temp_u_short & 0;
 	count = 0;
-	p_esf = fopen("esf.txt", "a+");
+	write = fopen("esf.txt", "a+");
 	//_mkdir("esf.m");
 	//p = fopen("esf.m","a+");
 	temp_u_long = temp_u_long | (0x0FF & payload[0]) << 0 | (0x0FF & payload[1]) << 8 | (0x0FF & payload[2]) << 16 | (0x0FF & payload[3]) << 24;
@@ -345,13 +346,13 @@ void write_esf_means_payload(uint8_t * payload, uint16_t data_length, uint16_t P
 			data_detials = temp_u_long & 0xFFFFFF;
 			Rawdata2Detials(data_detials, data_type, &float_data);
 			//fpring_float_data(p,float_data);
-			fprint_esf_means(p_esf, UBX_ESF_MEANS1.timeTag, data_type, float_data);
+			fprint_esf_means(write, UBX_ESF_MEANS1.timeTag, data_type, float_data);
 		}
 		else continue;
 		
 	}
 	//free(r);
-	fclose(p_esf);
+	fclose(write);
 }
 
 

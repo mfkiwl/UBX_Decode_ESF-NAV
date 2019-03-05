@@ -10,6 +10,7 @@
 #include "convert.h"
 #define MAXPATH              1024
 
+
 int main(int argc, char *argv[])
 {
 	char path[MAXPATH];
@@ -23,13 +24,14 @@ int main(int argc, char *argv[])
 	FILE *data_fp;
 
 	FILE *log;
-	
+	//FILE *write;
 	
 
 	printf("UBX file path: ");
 	scanf("%s", path);
 	data_fp = ubx_fopen(path, "rb");
 	log = ubx_fopen("log.txt", "w");
+	//write = ubx_fopen("esf.txt", "a+");
 
 	while (!feof(data_fp)) {
 		ubx_fread_in_loop(header_buf, SYNC_LENGTH, 1, data_fp);
@@ -55,13 +57,13 @@ int main(int argc, char *argv[])
 		fprint_payload(log, payload, header->length);
 		fprint_checksum(log, checksum);
 		fprintf(log, "\n");
-		/*
+	
 		if (is_ubx_esf_meas(header)) {
 			write_esf_means_payload(payload, header->length);
 			ubx_free(payload);
 			//timeTag=timeTag+1;
 		}
-		/*
+		/*	/*
 		if (is_ubx_esf_raw(header)) {
 			write_esf_raw_payload(payload, header->length);
 			ubx_free(payload);
@@ -91,6 +93,7 @@ int main(int argc, char *argv[])
 
 	}
 	ubx_fclose(log);
+	//ubx_fclose(write);
 	ubx_fclose(data_fp);
 	system("pause");
 	exit(EXIT_SUCCESS);
