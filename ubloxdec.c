@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 			write_esf_raw_payload(payload, header->length);
 			ubx_free(payload);
 		}
-		*/
+		
 		if (is_ubx_nav_pvt(header)) {//UBX_NAV_PVT
 			write_nav_pvt_payload(payload, header->length);
 			ubx_free(payload);
